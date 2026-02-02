@@ -2,14 +2,29 @@ import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 
-// TODO: Replace with your Firebase config
+/**
+ * IMPORTANT: Cấu hình Firebase này PHẢI GIỐNG NHAU cho cả 3 apps:
+ * 1. Customer App (private-hire-car)
+ * 2. Driver App (private-hire-driver)
+ * 3. Admin Web (private-hire-admin)
+ * 
+ * Setup Steps:
+ * 1. Tạo Firebase project tại: https://console.firebase.google.com
+ * 2. Enable Authentication (Email/Password)
+ * 3. Enable Firestore Database
+ * 4. Lấy config từ: Project Settings → General → Your apps
+ * 5. Paste config vào đây (thay thế phần TODO bên dưới)
+ * 6. Copy CÙNG config này vào cả 3 apps
+ */
+
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyDrWwfUzmWPCvej-jOdDliZ0adEzxxotHI",
+  authDomain: "privatehire-car.firebaseapp.com",
+  projectId: "privatehire-car",
+  storageBucket: "privatehire-car.firebasestorage.app",
+  messagingSenderId: "402703883604",
+  appId: "1:402703883604:web:835111aad4abc2a10cbcc1",
+  measurementId: "G-KQG6JZTTC4"
 };
 
 const app = initializeApp(firebaseConfig);
