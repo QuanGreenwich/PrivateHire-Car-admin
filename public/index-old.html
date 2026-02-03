@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PrivateHire - Admin Panel</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">🚗</div>
+                    <div>
+                        <h1 class="logo-text">
+                            <span>Private</span><span class="highlight">Hire</span>
+                        </h1>
+                        <p class="logo-subtitle">Admin Panel</p>
+                    </div>
+                </div>
+                <button class="btn-primary" onclick="showAddUserModal()">
+                    ➕ Add User
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Stats -->
+            <div class="section">
+                <h2 class="section-title">User Management</h2>
+                <p class="section-subtitle">Manage all users and drivers</p>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon blue">👥</div>
+                        <p class="stat-label">Total Users</p>
+                        <p class="stat-value" id="totalUsers">0</p>
+                    </div>
+                    <div class="stat-card primary">
+                        <div class="stat-icon white">🚗</div>
+                        <p class="stat-label white">Total Drivers</p>
+                        <p class="stat-value white" id="totalDrivers">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon purple">🛡️</div>
+                        <p class="stat-label">Total Accounts</p>
+                        <p class="stat-value" id="totalAccounts">0</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Map -->
+            <div class="section">
+                <h3 class="section-heading">🗺️ Live Fleet Map</h3>
+                <div class="map-container">
+                    <div id="map" class="map"></div>
+                </div>
+            </div>
+
+            <!-- Search -->
+            <div class="section">
+                <div class="search-box">
+                    <input 
+                        type="text" 
+                        id="searchInput" 
+                        placeholder="🔍 Search users by name or email..."
+                        oninput="filterData()"
+                    >
+                </div>
+            </div>
+
+            <!-- Users Table -->
+            <div class="section">
+                <div class="table-card">
+                    <h3 class="table-title">Users (<span id="usersCount">0</span>)</h3>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Joined</th>
+                                </tr>
+                            </thead>
+                            <tbody id="usersTableBody">
+                                <tr>
+                                    <td colspan="4" class="loading">Loading...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Drivers Table -->
+            <div class="section">
+                <div class="table-card">
+                    <h3 class="table-title">Drivers (<span id="driversCount">0</span>)</h3>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="driversTableBody">
+                                <tr>
+                                    <td colspan="4" class="loading">Loading...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Firebase SDKs -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js';
+        import { getFirestore, collection, getDocs, onSnapshot } from 'https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore.js';
+
+        // Firebase config
+        const firebaseConfig = {
+            apiKey: "AIzaSyDrWwfUzmWPCvej-jOdDliZ0adEzxxotHI",
+            authDomain: "privatehire-car.firebaseapp.com",
+            projectId: "privatehire-car",
+            storageBucket: "privatehire-car.firebasestorage.app",
+            messagingSenderId: "402703883604",
+            appId: "1:402703883604:web:835111aad4abc2a10cbcc1"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        window.db = db;
+        window.collection = collection;
+        window.getDocs = getDocs;
+        window.onSnapshot = onSnapshot;
+
+        // Initialize app when Firebase is ready
+        if (window.initApp) {
+            window.initApp();
+        }
+    </script>
+    <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
